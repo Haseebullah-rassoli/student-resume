@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student / Entry-Level Resume Builder — The Complete ATS Resume Guide and Builder</title>
+<style>
+/* ===========================================================
+   ATS Handbook — Resume Builder
+   Shared design system
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --navy:        #1B2A4A;
+  --navy-deep:   #101a30;
+  --gold:        #B8863B;
+  --gold-soft:   #E9DEC7;
+  --paper-bg:    #F3F4F7;
+  --paper:       #FFFFFF;
+  --ink:         #23262E;
+  --ink-soft:    #5A5F6B;
+  --line:        #DFE2E8;
+  --green:       #2E7D4F;
+  --red:         #B23A3A;
+  --radius:      10px;
+  --shadow-card: 0 1px 2px rgba(16,26,48,.06), 0 8px 24px rgba(16,26,48,.06);
+  --shadow-page: 0 2px 6px rgba(16,26,48,.10), 0 24px 48px -12px rgba(16,26,48,.22);
+}
+
+*{ box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--paper-bg);
+  color:var(--ink);
+  font-family:'Inter',system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+
+a{ color:inherit; }
+
+/* ---------- Top bar ---------- */
+.topbar{
+  position:sticky; top:0; z-index:40;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:16px; row-gap:8px; flex-wrap:wrap;
+  padding:14px 28px;
+  background:var(--navy);
+  color:#fff;
+  border-bottom:3px solid var(--gold);
+}
+.topbar .brand{
+  display:flex; align-items:baseline; gap:8px; flex-wrap:wrap;
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:16.5px;
+  letter-spacing:.1px;
+  max-width:520px;
+}
+@media (max-width:640px){
+  .topbar .brand{ font-size:14.5px; }
+}
+.topbar .brand .eyebrow{
+  font-family:'Inter',sans-serif;
+  font-weight:700;
+  font-size:10px;
+  letter-spacing:1.6px;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+.topbar nav{ display:flex; gap:4px; flex-wrap:wrap; }
+.topbar nav a{
+  text-decoration:none;
+  font-size:13px;
+  font-weight:600;
+  padding:7px 13px;
+  border-radius:100px;
+  color:#D9DEEA;
+  transition:background .15s ease, color .15s ease;
+}
+.topbar nav a:hover{ background:rgba(255,255,255,.08); color:#fff; }
+.topbar nav a.active{ background:var(--gold); color:var(--navy-deep); }
+
+/* ---------- Page intro ---------- */
+.page-intro{
+  max-width:1340px; margin:0 auto;
+  padding:34px 28px 6px;
+}
+.page-intro .kicker{
+  font-size:11px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase;
+  color:var(--gold);
+}
+.page-intro h1{
+  font-family:'Fraunces',serif;
+  font-weight:600;
+  font-size:clamp(26px,3.4vw,38px);
+  margin:6px 0 8px;
+  color:var(--navy);
+}
+.page-intro p{
+  max-width:640px;
+  color:var(--ink-soft);
+  font-size:15px;
+  line-height:1.6;
+  margin:0;
+}
+
+/* ---------- Builder layout ---------- */
+.builder{
+  max-width:1340px; margin:0 auto;
+  padding:28px 28px 10px;
+  display:grid;
+  grid-template-columns: minmax(0,1fr) 660px;
+  gap:28px;
+  align-items:start;
+}
+@media (max-width: 1180px){
+  .builder{ grid-template-columns: minmax(0,1fr) 480px; }
+}
+@media (max-width: 980px){
+  .builder{ grid-template-columns:1fr; }
+}
+
+.form-panel{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-card);
+  padding:24px 24px 28px;
+}
+
+.form-section{
+  padding-top:18px;
+  margin-top:18px;
+  border-top:1px solid var(--line);
+}
+.form-section:first-child{ margin-top:0; padding-top:0; border-top:none; }
+
+.form-section h2{
+  font-family:'Fraunces',serif;
+  font-size:16.5px;
+  font-weight:600;
+  color:var(--navy);
+  margin:0 0 3px;
+  display:flex; align-items:center; gap:8px;
+}
+.form-section .hint{
+  font-size:12.5px;
+  color:var(--ink-soft);
+  margin:0 0 14px;
+  line-height:1.5;
+}
+
+.field{ margin-bottom:12px; }
+.field label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  color:var(--ink-soft);
+  margin-bottom:5px;
+}
+.field input[type=text],
+.field input[type=email],
+.field input[type=tel],
+.field textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:7px;
+  padding:9px 11px;
+  font-family:'Inter',sans-serif;
+  font-size:13.5px;
+  color:var(--ink);
+  background:#FCFCFD;
+  transition:border-color .15s ease, box-shadow .15s ease;
+}
+.field input:focus, .field textarea:focus{
+  outline:none;
+  border-color:var(--navy);
+  box-shadow:0 0 0 3px rgba(27,42,74,.10);
+  background:#fff;
+}
+.field textarea{ resize:vertical; min-height:64px; line-height:1.5; }
+.field-row{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+@media (max-width:520px){ .field-row{ grid-template-columns:1fr; } }
+
+.entry-card{
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:14px 14px 6px;
+  margin-bottom:12px;
+  background:#FBFBFC;
+  position:relative;
+}
+.entry-card .remove-entry{
+  position:absolute; top:10px; right:10px;
+  background:none; border:none; cursor:pointer;
+  color:var(--red); font-size:12px; font-weight:700;
+  opacity:.75;
+}
+.entry-card .remove-entry:hover{ opacity:1; }
+
+.btn{
+  display:inline-flex; align-items:center; gap:7px;
+  font-family:'Inter',sans-serif;
+  font-size:13px; font-weight:600;
+  padding:9px 16px;
+  border-radius:7px;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:transform .1s ease, background .15s ease, box-shadow .15s ease;
+}
+.btn:active{ transform:translateY(1px); }
+.btn-add{
+  background:#fff; border-color:var(--line); color:var(--navy);
+  font-size:12.5px; padding:7px 13px;
+}
+.btn-add:hover{ border-color:var(--navy); }
+.btn-primary{
+  background:var(--navy); color:#fff;
+}
+.btn-primary:hover{ background:var(--navy-deep); }
+.btn-gold{
+  background:var(--gold); color:#26200f;
+}
+.btn-gold:hover{ filter:brightness(1.05); }
+.btn-ghost{
+  background:#fff; border-color:var(--line); color:var(--ink);
+}
+.btn-ghost:hover{ border-color:var(--ink-soft); }
+
+.export-row{
+  display:flex; gap:10px; flex-wrap:wrap;
+  padding-top:20px; margin-top:20px; border-top:1px solid var(--line);
+}
+
+/* ---------- Preview panel ---------- */
+.preview-col{ position:sticky; top:86px; }
+.preview-frame{
+  background:var(--paper);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow-page);
+  overflow:hidden;
+  border:1px solid var(--line);
+}
+.preview-toolbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 14px;
+  background:#F7F8FA;
+  border-bottom:1px solid var(--line);
+}
+.ats-badge{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:10.5px; font-weight:700; letter-spacing:.3px;
+  color:var(--green);
+}
+.ats-badge::before{
+  content:''; width:6px; height:6px; border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 0 3px rgba(46,125,79,.15);
+}
+.preview-toolbar .zoom-label{ font-size:10.5px; color:var(--ink-soft); }
+
+#preview-scale-wrap{
+  max-height:80vh; overflow:auto;
+  background:#EDEFF3;
+  padding:22px 16px;
+}
+/* .resume-doc = the actual resume content box, shared by the on-screen
+   preview AND used directly for PDF/Word export. Scale tricks must stay
+   OFF this shared class — that is what broke PDF export in the first
+   place (html2canvas captured the wrong, shrunk box). Screen-only sizing
+   is scoped to #resume-preview specifically, below, and is neutralised
+   in place (not removed) right before a PDF is generated. */
+.resume-doc{
+  width:680px;
+  background:#fff;
+  padding:46px 50px;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#1A1A1A;
+}
+
+/* Screen-only sizing — shown near full scale so it's actually readable,
+   just enough to comfortably fit the wider preview panel. */
+#resume-preview.resume-doc{
+  transform:scale(.95);
+  transform-origin:top center;
+  margin:0 auto;
+  box-shadow:0 1px 3px rgba(0,0,0,.12);
+}
+@media (max-width:1180px){
+  #resume-preview.resume-doc{ transform:scale(.82); }
+}
+@media (max-width:980px){
+  #resume-preview.resume-doc{ transform:scale(.95); }
+}
+
+/* Resume typography — mirrors Chapter 4 rules exactly */
+.resume-doc h1.r-name{ font-size:21px; font-weight:700; margin:0 0 4px; letter-spacing:.2px; }
+.resume-doc .r-contact{ font-size:11px; color:#444; margin:0 0 16px; }
+.resume-doc h2.r-heading{
+  font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.6px;
+  color:#1B2A4A; border-bottom:1.5px solid #1B2A4A;
+  margin:16px 0 8px; padding-bottom:3px;
+}
+.resume-doc .r-summary{ font-size:11.5px; line-height:1.55; margin:0 0 4px; }
+.resume-doc .r-entry{ margin-bottom:10px; }
+.resume-doc .r-entry-top{ display:flex; justify-content:space-between; gap:10px; font-size:11.5px; font-weight:700; }
+.resume-doc .r-entry-sub{ display:flex; justify-content:space-between; gap:10px; font-size:11px; font-style:italic; color:#333; margin-bottom:3px; }
+.resume-doc ul.r-bullets{ margin:2px 0 0; padding-left:16px; }
+.resume-doc ul.r-bullets li{ font-size:11.3px; line-height:1.5; margin-bottom:2px; }
+.resume-doc .r-skills{ font-size:11.5px; line-height:1.6; }
+.resume-doc .r-empty{ color:#B7BAC2; font-style:italic; }
+
+/* ---------- Guide / contact section ---------- */
+.guide-section{
+  max-width:1340px; margin:36px auto 0; padding:0 28px;
+}
+.guide-card{
+  background:var(--navy);
+  color:#EDEFF6;
+  border-radius:14px;
+  padding:26px 28px;
+  display:grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap:28px;
+}
+@media (max-width:820px){ .guide-card{ grid-template-columns:1fr; } }
+.guide-card h2{
+  font-family:'Fraunces',serif; font-weight:600; font-size:19px;
+  margin:0 0 10px; color:#fff;
+}
+.guide-card ol{ margin:0; padding-left:20px; font-size:13px; line-height:1.75; color:#CBD2E3; }
+.guide-card ol li strong{ color:#fff; }
+.contact-box{
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:10px;
+  padding:18px 20px;
+}
+.contact-box h3{ margin:0 0 4px; font-size:12px; letter-spacing:.4px; text-transform:uppercase; color:var(--gold); }
+.contact-box p{ margin:0 0 14px; font-size:12px; color:#B7BFD6; }
+.contact-line{ display:flex; align-items:center; gap:10px; padding:9px 0; border-top:1px solid rgba(255,255,255,.08); font-size:13.5px; }
+.contact-line:first-of-type{ border-top:none; }
+.contact-line .tag{ font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; color:var(--gold); width:64px; flex:none; }
+.contact-line a{ color:#fff; text-decoration:none; font-weight:600; }
+.contact-line a:hover{ text-decoration:underline; }
+
+/* ---------- Phrase bank ---------- */
+.phrase-section{ max-width:1340px; margin:36px auto 60px; padding:0 28px; }
+.phrase-section > .kicker{ font-size:11px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:var(--gold); }
+.phrase-section > h2{ font-family:'Fraunces',serif; font-size:24px; font-weight:600; color:var(--navy); margin:6px 0 6px; }
+.phrase-section > p.lead{ color:var(--ink-soft); font-size:14px; max-width:680px; margin:0 0 22px; line-height:1.6; }
+
+.phrase-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+@media (max-width:820px){ .phrase-grid{ grid-template-columns:1fr; } }
+
+.phrase-block{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.phrase-block h3{
+  margin:0; padding:13px 16px;
+  font-size:13.5px; font-weight:700; color:var(--navy);
+  background:#F7F5EF; border-bottom:1px solid var(--gold-soft);
+}
+.code-block{
+  position:relative;
+  background:#12172A;
+  color:#DCE3F5;
+}
+.code-block pre{
+  margin:0; padding:16px;
+  font-family:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  font-size:12px; line-height:1.85;
+  white-space:pre-wrap; word-break:break-word;
+}
+.code-block .copy-btn{
+  position:absolute; top:10px; right:10px;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.18);
+  color:#EDEFF6;
+  font-size:11px; font-weight:600;
+  padding:5px 10px; border-radius:6px;
+  cursor:pointer;
+}
+.code-block .copy-btn:hover{ background:rgba(255,255,255,.16); }
+.code-block .copy-btn.copied{ background:var(--green); border-color:var(--green); color:#fff; }
+
+/* ---------- Custom-order announcement banner ---------- */
+.order-banner{
+  max-width:1340px; margin:36px auto 0; padding:0 28px;
+}
+.order-banner .inner{
+  background:linear-gradient(135deg, var(--gold) 0%, #CBA05C 100%);
+  border-radius:14px;
+  padding:22px 28px;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:20px; flex-wrap:wrap;
+}
+.order-banner h3{
+  font-family:'Fraunces',serif; font-weight:600; font-size:18px;
+  color:#241C0B; margin:0 0 4px;
+}
+.order-banner p{
+  margin:0; font-size:13.5px; color:#3B2F14; max-width:520px; line-height:1.5;
+}
+.order-banner .actions{ display:flex; gap:10px; flex-wrap:wrap; }
+.order-banner .actions a{
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--navy); color:#fff;
+  font-size:13px; font-weight:700;
+  padding:10px 18px; border-radius:100px;
+  text-decoration:none;
+  transition:background .15s ease;
+}
+.order-banner .actions a:hover{ background:var(--navy-deep); }
+.order-banner .actions a.secondary{
+  background:rgba(255,255,255,.5); color:#241C0B;
+}
+.order-banner .actions a.secondary:hover{ background:rgba(255,255,255,.75); }
+
+/* ---------- Print / Save-as-PDF ----------
+   Everything carrying .no-print is fully removed from the print layout
+   (display:none, not visibility:hidden — the visibility approach was
+   producing blank PDFs in some Chrome versions). Only the resume itself
+   remains, reset to a plain full-size page. */
+@media print{
+  .no-print{ display:none !important; }
+  .builder{ display:block !important; max-width:none !important; margin:0 !important; padding:0 !important; }
+  .preview-col{ position:static !important; }
+  #preview-scale-wrap{
+    overflow:visible !important; max-height:none !important;
+    padding:0 !important; background:none !important;
+  }
+  .preview-frame{ box-shadow:none !important; border:none !important; border-radius:0 !important; }
+  #resume-preview{
+    position:static !important;
+    width:100% !important;
+    transform:none !important;
+    margin:0 !important;
+    box-shadow:none !important;
+    padding:0.4in 0.5in !important;
+  }
+  @page{ size:letter; margin:0; }
+}
+
+
+footer.site-footer{
+  text-align:center; padding:28px; color:var(--ink-soft); font-size:12px;
+  border-top:1px solid var(--line);
+}
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
+</head>
+<body>
+
+<div class="topbar no-print">
+  <div class="brand"><span class="eyebrow">The Complete</span>&nbsp;ATS Resume Guide &amp; Builder</div>
+  <nav>
+    <a href="https://haseebullah-rassoli.github.io/student-resume/" class="active">Student</a>
+    <a href="https://haseebullah-rassoli.github.io/professional-resume/">Professional</a>
+    <a href="https://haseebullah-rassoli.github.io/executive-resume/">Executive</a>
+  </nav>
+</div>
+
+<div class="page-intro no-print">
+  <div class="kicker">Template 1 of 3 — For students &amp; recent graduates</div>
+  <h1>Student / Entry-Level Resume Builder</h1>
+  <p>Education and projects lead this template, since they're currently your strongest evidence (Chapter 9.5). Fill in the form — your resume builds itself on the right, ready to download as PDF or Word.</p>
+</div>
+
+<div class="builder">
+  <!-- ============ FORM PANEL ============ -->
+  <div class="form-panel no-print">
+
+    <div class="form-section">
+      <h2>1 · Contact Information</h2>
+      <p class="hint">Keep this in the main body — never in a header or footer (Chapter 4.9).</p>
+      <div class="field-row">
+        <div class="field"><label>Full Name</label><input type="text" id="f-name" placeholder="Alex Karimi" oninput="render()"></div>
+        <div class="field"><label>Target Role (optional)</label><input type="text" id="f-title" placeholder="Aspiring Data Analyst" oninput="render()"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Email</label><input type="email" id="f-email" placeholder="alex.karimi@email.com" oninput="render()"></div>
+        <div class="field"><label>Phone</label><input type="tel" id="f-phone" placeholder="(415) 555-0134" oninput="render()"></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>City, Country</label><input type="text" id="f-location" placeholder="Kabul, Afghanistan" oninput="render()"></div>
+        <div class="field"><label>LinkedIn URL (optional)</label><input type="text" id="f-linkedin" placeholder="linkedin.com/in/alexkarimi" oninput="render()"></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2>2 · Summary or Objective</h2>
+      <p class="hint">With little work history yet, an objective (what you're aiming for) is fine — but a 2-line summary of your strongest skill works even better if you can write one (Chapter 5.3).</p>
+      <div class="field">
+        <textarea id="f-summary" rows="3" placeholder="Recent Computer Science graduate with hands-on experience in Python and SQL through coursework and personal projects. Seeking an entry-level Data Analyst role to apply strong analytical and problem-solving skills." oninput="render()"></textarea>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2>3 · Education</h2>
+      <p class="hint">Leads the resume at this career stage (Chapter 9.5). Include GPA only if 3.0 or above.</p>
+      <div id="edu-container"></div>
+      <button type="button" class="btn btn-add" onclick="addEducation()">+ Add another degree</button>
+    </div>
+
+    <div class="form-section">
+      <h2>4 · Projects</h2>
+      <p class="hint">Coursework, personal builds, or freelance work all count — describe them like a job (Chapter 5.8).</p>
+      <div id="proj-container"></div>
+      <button type="button" class="btn btn-add" onclick="addProject()">+ Add another project</button>
+    </div>
+
+    <div class="form-section">
+      <h2>5 · Skills</h2>
+      <div class="field">
+        <input type="text" id="f-skills" placeholder="Python, SQL, Excel, Tableau, Git" oninput="render()">
+      </div>
+    </div>
+
+    <div class="form-section">
+      <h2>6 · Experience / Internships (if any)</h2>
+      <div id="exp-container"></div>
+      <button type="button" class="btn btn-add" onclick="addExperience()">+ Add role or internship</button>
+    </div>
+
+    <div class="form-section">
+      <h2>7 · Volunteer Experience (optional)</h2>
+      <p class="hint">Include this if it's genuinely relevant — it fills a gap, or shows a skill your other sections don't (Chapter 9.9). Describe it with the same rigor as paid work.</p>
+      <div id="vol-container"></div>
+      <button type="button" class="btn btn-add" onclick="addVolunteer()">+ Add volunteer role</button>
+    </div>
+
+    <div class="form-section">
+      <h2>8 · Certifications (optional)</h2>
+      <div id="cert-container"></div>
+      <button type="button" class="btn btn-add" onclick="addCert()">+ Add certification</button>
+    </div>
+
+    <div class="export-row">
+      <button class="btn btn-primary" onclick="exportPDF(document.getElementById('f-name').value || 'resume')">⬇ Download PDF</button>
+      <button class="btn btn-gold" onclick="exportWord(document.getElementById('f-name').value || 'resume')">⬇ Download Word (.docx)</button>
+    </div>
+    <p class="hint" style="margin-top:8px;">If the PDF button doesn't open anything (some mobile browsers block it), use your browser's own menu instead: tap ⋮ or ⋯ at the top → <strong>Print</strong> (or Share → Print) → choose <strong>Save as PDF</strong>.</p>
+  </div>
+
+  <!-- ============ PREVIEW PANEL ============ -->
+  <div class="preview-col">
+    <div class="preview-frame">
+      <div class="preview-toolbar no-print">
+        <span class="ats-badge">ATS-Safe · Single column · Arial 11pt</span>
+        <span class="zoom-label">Live preview</span>
+      </div>
+      <div id="preview-scale-wrap">
+        <div id="resume-preview" class="resume-doc"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ GUIDE / SUPPORT ============ -->
+<div class="guide-section no-print">
+  <div class="guide-card">
+    <div>
+      <h2>How this page works</h2>
+      <ol>
+        <li><strong>Fill in each section</strong> on the left — your resume updates instantly on the right as you type.</li>
+        <li><strong>No work history yet?</strong> That's fine — lead with Education and Projects; that's exactly what this template is built for.</li>
+        <li><strong>Write one bullet per line</strong> in the project and experience boxes — each line becomes its own bullet point.</li>
+        <li><strong>Download</strong> as PDF or Word once you're happy with the preview. Nothing is uploaded or stored anywhere — everything stays in your browser.</li>
+        <li>Need example wording? Scroll to <strong>Suggested Phrases</strong> below and copy directly into your form.</li>
+      </ol>
+    </div>
+    <div class="contact-box">
+      <h3>Technical Support</h3>
+      <p>Having trouble with a download, a broken layout, or anything else on this page? Reach out directly:</p>
+      <div class="contact-line"><span class="tag">Email</span><a href="mailto:Haseebullahrassoli4@gmail.com">Haseebullahrassoli4@gmail.com</a></div>
+      <div class="contact-line"><span class="tag">WhatsApp</span><a href="https://wa.me/93786114613" target="_blank" rel="noopener">+93 786 114 613</a></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PHRASE BANK ============ -->
+<div class="phrase-section no-print">
+  <div class="kicker">Copy &amp; Paste</div>
+  <h2>Suggested Phrases &amp; Vocabulary</h2>
+  <p class="lead">Pulled directly from Chapters 5 and 9. Click "Copy" and paste into the form above — then edit the specifics so every line honestly reflects your own experience.</p>
+
+  <div class="phrase-grid">
+
+    <div class="phrase-block">
+      <h3>Objective Formula (no work history yet)</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>Recent [Degree] graduate with hands-on experience in [skill 1] and [skill 2] through coursework and [project/internship]. Seeking an entry-level [target role] to apply [1–2 key strengths].
+
+Example:
+Recent Computer Science graduate with hands-on experience in Python and SQL through coursework and personal projects. Seeking an entry-level Data Analyst role to apply strong analytical skills.</pre>
+      </div>
+    </div>
+
+    <div class="phrase-block">
+      <h3>Project Bullet Formula</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>[Action Verb] + [what you built/did] + [tool(s) used] + [result, if measurable]
+
+Example:
+Built a personal finance tracker using Python and SQLite, reducing manual budget tracking time by an estimated 3 hours per month.</pre>
+      </div>
+    </div>
+
+    <div class="phrase-block">
+      <h3>Action Verbs for Students</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>Projects: Built, Designed, Developed, Created, Programmed
+Coursework/Research: Analyzed, Researched, Presented, Investigated
+Teamwork: Collaborated, Contributed, Coordinated, Assisted (with a specific result)
+Leadership (clubs/teams): Organized, Led, Founded, Managed</pre>
+      </div>
+    </div>
+
+    <div class="phrase-block">
+      <h3>Words &amp; Phrases to Avoid</h3>
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>Avoid: "Hardworking", "Fast learner", "Team player" (with no example),
+"Responsible for...", "Helped with...", listing coursework with no
+context for why it matters to the target role.
+
+Replace with a specific project, tool, or result instead.</pre>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="order-banner no-print">
+  <div class="inner">
+    <div>
+      <h3>Need something more custom?</h3>
+      <p>Beyond these three templates, we also design fully custom resumes, CVs, and cover letters — built around you, not a fixed format. Tell us what you need and we'll take it from there.</p>
+    </div>
+    <div class="actions">
+      <a href="mailto:Haseebullahrassoli4@gmail.com">✉ Email us</a>
+      <a href="https://wa.me/93786114613" target="_blank" rel="noopener" class="secondary">WhatsApp</a>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer no-print">
+  Part of The Complete ATS Resume Guide and Builder. Everything you type stays in your browser; nothing is uploaded.
+</footer>
+
+<script>
+/* ===========================================================
+   ATS Handbook — Resume Builder
+   Shared utilities used by student.html / professional.html / executive.html
+   =========================================================== */
+
+/* ---------- escaping ---------- */
+function esc(str){
+  if(!str) return '';
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ---------- copy-to-clipboard for phrase bank code blocks ---------- */
+function copyCode(btn){
+  const block = btn.closest('.code-block').querySelector('pre');
+  const text = block.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.textContent;
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = original; btn.classList.remove('copied'); }, 1800);
+  });
+}
+
+/* ---------- generic repeatable-entry helper ----------
+   containerId : id of the div holding entry-cards
+   templateFn  : (index) => html string for one entry-card
+   onChange    : callback to re-render preview
+-------------------------------------------------------- */
+function addEntry(containerId, templateFn, onChange){
+  const container = document.getElementById(containerId);
+  const idx = container.children.length;
+  const wrapper = document.createElement('div');
+  wrapper.className = 'entry-card';
+  wrapper.dataset.idx = idx;
+  wrapper.innerHTML = templateFn(idx) +
+    '<button type="button" class="remove-entry" onclick="this.parentElement.remove(); ' + onChange + '();">✕ Remove</button>';
+  container.appendChild(wrapper);
+}
+
+/* ---------- read all entry-cards in a container into an array of objects ---------- */
+function readEntries(containerId, fieldMap){
+  const container = document.getElementById(containerId);
+  const out = [];
+  container.querySelectorAll('.entry-card').forEach(card => {
+    const obj = {};
+    Object.keys(fieldMap).forEach(key => {
+      const sel = fieldMap[key];
+      const el = card.querySelector(sel);
+      obj[key] = el ? el.value : '';
+    });
+    out.push(obj);
+  });
+  return out;
+}
+
+/* ---------- bullets textarea -> array of non-empty lines ---------- */
+function linesToArray(text){
+  return (text || '').split('\n').map(s => s.trim()).filter(Boolean);
+}
+
+/* ---------- PDF export ----------
+   Two earlier approaches both failed for browser-specific reasons:
+   1) html2canvas (screenshot-based) produced blank images in some setups.
+   2) The browser's native print (window.print) hit a known Chrome bug
+      where sticky/grid-positioned ancestors can print blank.
+   This approach avoids both entirely: it writes real PDF text directly,
+   the same way the Word export does — reading the already-rendered
+   resume DOM and drawing each line with jsPDF's own text API. There is
+   no screenshot and no print dialog involved, so neither bug class can
+   happen here. */
+function exportPDF(filename){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+
+  const marginX = 54, marginTop = 56, pageWidth = 612, pageHeight = 792;
+  const maxWidth = pageWidth - marginX * 2;
+  const navy = [27, 42, 74];
+  let y = marginTop;
+
+  function ensureSpace(need){
+    if (y + need > pageHeight - 50) { doc.addPage(); y = marginTop; }
+  }
+  function para(text, size, style, extraGap){
+    if (!text) return;
+    doc.setFont('helvetica', style || 'normal');
+    doc.setFontSize(size);
+    doc.setTextColor(20, 20, 20);
+    const lines = doc.splitTextToSize(text, maxWidth);
+    lines.forEach(line => {
+      ensureSpace(size * 1.32);
+      doc.text(line, marginX, y);
+      y += size * 1.32;
+    });
+    y += extraGap || 0;
+  }
+  function twoCol(left, right, size, style){
+    if (!left && !right) return;
+    doc.setFont('helvetica', style || 'bold');
+    doc.setFontSize(size);
+    doc.setTextColor(20, 20, 20);
+    ensureSpace(size * 1.32);
+    doc.text(left || '', marginX, y);
+    if (right) {
+      const w = doc.getTextWidth(right);
+      doc.text(right, marginX + maxWidth - w, y);
+    }
+    y += size * 1.32;
+  }
+  function heading(text){
+    if (!text) return;
+    y += 7;
+    ensureSpace(22);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(navy[0], navy[1], navy[2]);
+    doc.text(text.toUpperCase(), marginX, y);
+    y += 4;
+    doc.setDrawColor(navy[0], navy[1], navy[2]);
+    doc.setLineWidth(1);
+    doc.line(marginX, y, marginX + maxWidth, y);
+    y += 13;
+  }
+  function bullet(text){
+    if (!text) return;
+    const size = 10.2;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(size);
+    doc.setTextColor(20, 20, 20);
+    const lines = doc.splitTextToSize(text, maxWidth - 14);
+    lines.forEach((line, i) => {
+      ensureSpace(size * 1.38);
+      doc.text((i === 0 ? '•  ' : '   ') + line, marginX + 8, y);
+      y += size * 1.38;
+    });
+  }
+
+  const el = document.getElementById('resume-preview');
+  Array.from(el.children).forEach(node => {
+    const cls = node.className || '';
+    if (node.tagName === 'H1' && cls.includes('r-name')) {
+      doc.setFont('helvetica', 'bold'); doc.setFontSize(17);
+      doc.setTextColor(20, 20, 20);
+      doc.text(node.textContent.trim(), marginX, y);
+      y += 22;
+    } else if (cls.includes('r-contact')) {
+      para(node.textContent.trim(), 9.6, 'normal', 6);
+    } else if (node.tagName === 'H2' && cls.includes('r-heading')) {
+      heading(node.textContent.trim());
+    } else if (cls.includes('r-summary') || cls.includes('r-skills')) {
+      if (!cls.includes('r-empty') && !node.querySelector('.r-empty')) {
+        para(node.textContent.trim(), 10.3, 'normal', 5);
+      }
+    } else if (cls.includes('r-entry')) {
+      const top = node.querySelector('.r-entry-top');
+      const sub = node.querySelector('.r-entry-sub');
+      if (top) {
+        const spans = top.querySelectorAll('span');
+        const left = spans[0] ? spans[0].textContent.trim() : top.textContent.trim();
+        const right = spans[1] ? spans[1].textContent.trim() : '';
+        twoCol(left, right, 10.6, 'bold');
+      }
+      if (sub && sub.textContent.trim()) {
+        para(sub.textContent.trim(), 9.8, 'italic', 1);
+      }
+      node.querySelectorAll('.r-bullets li').forEach(li => {
+        if (!li.className.includes('r-empty')) bullet(li.textContent.trim());
+      });
+      y += 7;
+    }
+    // paragraphs with class r-empty (placeholder hint text) are intentionally skipped
+  });
+
+  doc.save((filename || 'resume') + '.pdf');
+}
+
+/* ---------- Word (.docx) export ----------
+   No visual rendering involved here — this just serializes the live
+   markup, so it works regardless of the on-screen scaling. */
+function exportWord(filename){
+  const el = document.getElementById('resume-preview');
+  const htmlString = `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Resume</title>
+  <style>
+    body{ font-family:Arial, Helvetica, sans-serif; color:#1A1A1A; }
+    h1{ font-size:16pt; margin:0 0 4pt; }
+    h2{ font-size:10.5pt; text-transform:uppercase; letter-spacing:.5pt; color:#1B2A4A;
+        border-bottom:1pt solid #1B2A4A; margin:14pt 0 6pt; padding-bottom:2pt; }
+    p{ font-size:10.5pt; line-height:1.4; margin:0 0 4pt; }
+    ul{ margin:2pt 0 0; padding-left:16pt; }
+    li{ font-size:10.5pt; line-height:1.4; }
+    .r-contact{ font-size:9.5pt; color:#444; }
+    .r-entry-top{ font-size:10.5pt; font-weight:bold; }
+    .r-entry-sub{ font-size:10pt; font-style:italic; }
+  </style></head><body>${el.innerHTML}</body></html>`;
+
+  const converted = htmlDocx.asBlob(htmlString);
+  const url = URL.createObjectURL(converted);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = (filename || 'resume') + '.docx';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+}
+
+</script>
+<script>
+function addEducation(data){
+  data = data || {};
+  addEntry('edu-container', (i) => `
+    <div class="field-row">
+      <div class="field"><label>Degree</label><input type="text" class="edu-degree" placeholder="B.Sc. Computer Science" value="${esc(data.degree||'')}" oninput="render()"></div>
+      <div class="field"><label>Institution</label><input type="text" class="edu-school" placeholder="Kabul University" value="${esc(data.school||'')}" oninput="render()"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Dates</label><input type="text" class="edu-dates" placeholder="2021 – 2025" value="${esc(data.dates||'')}" oninput="render()"></div>
+      <div class="field"><label>GPA (optional, if 3.0+)</label><input type="text" class="edu-gpa" placeholder="3.6 / 4.0" value="${esc(data.gpa||'')}" oninput="render()"></div>
+    </div>
+  `, 'render');
+  render();
+}
+function addProject(data){
+  data = data || {};
+  addEntry('proj-container', (i) => `
+    <div class="field-row">
+      <div class="field"><label>Project Name</label><input type="text" class="proj-name" placeholder="Personal Finance Tracker" value="${esc(data.name||'')}" oninput="render()"></div>
+      <div class="field"><label>Dates</label><input type="text" class="proj-dates" placeholder="Spring 2025" value="${esc(data.dates||'')}" oninput="render()"></div>
+    </div>
+    <div class="field"><label>Bullets (one per line)</label><textarea class="proj-bullets" rows="3" placeholder="Built a personal finance tracker using Python and SQLite" oninput="render()">${esc(data.bullets||'')}</textarea></div>
+  `, 'render');
+  render();
+}
+function addExperience(data){
+  data = data || {};
+  addEntry('exp-container', (i) => `
+    <div class="field-row">
+      <div class="field"><label>Job / Internship Title</label><input type="text" class="exp-title" placeholder="Marketing Intern" value="${esc(data.jobTitle||'')}" oninput="render()"></div>
+      <div class="field"><label>Company</label><input type="text" class="exp-company" placeholder="Bright Path Media" value="${esc(data.company||'')}" oninput="render()"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Location</label><input type="text" class="exp-location" placeholder="Kabul, Afghanistan" value="${esc(data.location||'')}" oninput="render()"></div>
+      <div class="field"><label>Dates</label><input type="text" class="exp-dates" placeholder="Jun 2024 – Aug 2024" value="${esc(data.dates||'')}" oninput="render()"></div>
+    </div>
+    <div class="field"><label>Bullets (one per line)</label><textarea class="exp-bullets" rows="3" oninput="render()">${esc(data.bullets||'')}</textarea></div>
+  `, 'render');
+  render();
+}
+function addCert(data){
+  data = data || {};
+  addEntry('cert-container', (i) => `
+    <div class="field-row">
+      <div class="field"><label>Certification</label><input type="text" class="cert-name" placeholder="Google Data Analytics" value="${esc(data.name||'')}" oninput="render()"></div>
+      <div class="field"><label>Issuer / Date</label><input type="text" class="cert-issuer" placeholder="Coursera, 2025" value="${esc(data.issuer||'')}" oninput="render()"></div>
+    </div>
+  `, 'render');
+  render();
+}
+function addVolunteer(data){
+  data = data || {};
+  addEntry('vol-container', (i) => `
+    <div class="field-row">
+      <div class="field"><label>Role</label><input type="text" class="vol-role" placeholder="Volunteer Chess Club Coach" value="${esc(data.role||'')}" oninput="render()"></div>
+      <div class="field"><label>Organization</label><input type="text" class="vol-org" placeholder="Kabul Youth Center" value="${esc(data.org||'')}" oninput="render()"></div>
+    </div>
+    <div class="field-row">
+      <div class="field"><label>Dates</label><input type="text" class="vol-dates" placeholder="2023 – Present" value="${esc(data.dates||'')}" oninput="render()"></div>
+    </div>
+    <div class="field"><label>Bullets (one per line)</label><textarea class="vol-bullets" rows="2" oninput="render()">${esc(data.bullets||'')}</textarea></div>
+  `, 'render');
+  render();
+}
+
+function render(){
+  const name = document.getElementById('f-name').value || 'Your Name';
+  const title = document.getElementById('f-title').value;
+  const email = document.getElementById('f-email').value;
+  const phone = document.getElementById('f-phone').value;
+  const location = document.getElementById('f-location').value;
+  const linkedin = document.getElementById('f-linkedin').value;
+  const summary = document.getElementById('f-summary').value;
+  const skills = document.getElementById('f-skills').value;
+
+  const contactParts = [email, phone, location, linkedin].filter(Boolean).join('  ·  ');
+
+  const educations = readEntries('edu-container', { degree: '.edu-degree', school: '.edu-school', dates: '.edu-dates', gpa: '.edu-gpa' });
+  const projects = readEntries('proj-container', { name: '.proj-name', dates: '.proj-dates', bullets: '.proj-bullets' });
+  const experiences = readEntries('exp-container', { jobTitle: '.exp-title', company: '.exp-company', location: '.exp-location', dates: '.exp-dates', bullets: '.exp-bullets' });
+  const volunteers = readEntries('vol-container', { role: '.vol-role', org: '.vol-org', dates: '.vol-dates', bullets: '.vol-bullets' });
+  const certs = readEntries('cert-container', { name: '.cert-name', issuer: '.cert-issuer' });
+
+  let html = `<h1 class="r-name">${esc(name)}${title ? ' — ' + esc(title) : ''}</h1>`;
+  html += `<p class="r-contact">${contactParts ? esc(contactParts) : '<span class="r-empty">email · phone · city, country</span>'}</p>`;
+
+  html += `<h2 class="r-heading">${title ? 'Objective' : 'Summary'}</h2>`;
+  html += `<p class="r-summary">${summary ? esc(summary) : '<span class="r-empty">Your summary or objective will appear here.</span>'}</p>`;
+
+  html += `<h2 class="r-heading">Education</h2>`;
+  if(educations.length){
+    educations.forEach(e => {
+      html += `<div class="r-entry"><div class="r-entry-top"><span>${esc(e.degree||'Degree')} — ${esc(e.school||'Institution')}</span><span>${esc(e.dates||'')}</span></div>${e.gpa ? `<div class="r-entry-sub"><span>GPA: ${esc(e.gpa)}</span></div>` : ''}</div>`;
+    });
+  } else { html += `<p class="r-empty">Add your degree using the form on the left.</p>`; }
+
+  html += `<h2 class="r-heading">Projects</h2>`;
+  if(projects.length){
+    projects.forEach(pr => {
+      html += `<div class="r-entry">
+        <div class="r-entry-top"><span>${esc(pr.name||'Project Name')}</span><span>${esc(pr.dates||'')}</span></div>
+        <ul class="r-bullets">${linesToArray(pr.bullets).map(b => `<li>${esc(b)}</li>`).join('') || '<li class="r-empty">Describe what you built and the result</li>'}</ul>
+      </div>`;
+    });
+  } else { html += `<p class="r-empty">Add a project using the form on the left.</p>`; }
+
+  html += `<h2 class="r-heading">Skills</h2>`;
+  html += `<p class="r-skills">${skills ? esc(skills) : '<span class="r-empty">Python · SQL · Excel · …</span>'}</p>`;
+
+  if(experiences.length){
+    html += `<h2 class="r-heading">Experience</h2>`;
+    experiences.forEach(e => {
+      html += `<div class="r-entry">
+        <div class="r-entry-top"><span>${esc(e.jobTitle||'Title')} — ${esc(e.company||'Company')}</span><span>${esc(e.dates||'')}</span></div>
+        <div class="r-entry-sub"><span>${esc(e.location||'')}</span></div>
+        <ul class="r-bullets">${linesToArray(e.bullets).map(b => `<li>${esc(b)}</li>`).join('')}</ul>
+      </div>`;
+    });
+  }
+
+  if(volunteers.length){
+    html += `<h2 class="r-heading">Volunteer Experience</h2>`;
+    volunteers.forEach(v => {
+      html += `<div class="r-entry">
+        <div class="r-entry-top"><span>${esc(v.role||'Role')} — ${esc(v.org||'Organization')}</span><span>${esc(v.dates||'')}</span></div>
+        <ul class="r-bullets">${linesToArray(v.bullets).map(b => `<li>${esc(b)}</li>`).join('')}</ul>
+      </div>`;
+    });
+  }
+
+  if(certs.length){
+    html += `<h2 class="r-heading">Certifications</h2>`;
+    certs.forEach(c => {
+      html += `<div class="r-entry"><div class="r-entry-top"><span>${esc(c.name||'Certification')}</span><span>${esc(c.issuer||'')}</span></div></div>`;
+    });
+  }
+
+  document.getElementById('resume-preview').innerHTML = html;
+}
+
+addEducation();
+addProject();
+render();
+</script>
+</body>
+</html>
